@@ -1,0 +1,6 @@
+display_name: MrzbCLI
+publisher_display_name: MrzbCLI
+identity_name: app.MrzbCLI.ru
+msix_version: 1.0.0.0
+logo_path: windows\runner\resources\app_icon.ico
+capabilities: internetClient, privateNetworkClientServer

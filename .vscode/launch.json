@@ -1,0 +1,44 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Hiddify Dev",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "program": "lib/main.dart",
+        },
+        {
+            "name": "Hiddify Dev Release",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "program": "lib/main.dart",
+        },
+        {
+            "name": "Hiddify Dev Profile",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "program": "lib/main.dart",
+        },
+        {
+            "name": "Hiddify Prod",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "program": "lib/main_prod.dart",
+        },
+        {
+            "name": "Attach: Design for iPad",
+            "request": "attach",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "args": [
+                "--app-id",
+                "com.hiddify.ios"
+            ],
+            "deviceId": "designed-for-ipad",
+        }
+    ]
+}

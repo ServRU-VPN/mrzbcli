@@ -1,0 +1,16 @@
+app_id: 6L903538-42B1-4596-G479-BJ779F21A65D
+publisher: MrzbCLI
+publisher_url: https://github.com/ServRU-VPN/mrzbcli
+display_name: MrzbCLI
+executable_name: MrzbCLI.exe
+output_base_file_name: MrzbCLI.exe
+create_desktop_icon: true
+install_dir_name: "{autopf64}\\MrzbCLI"
+setup_icon_file: ..\..\windows\runner\resources\app_icon.ico
+locales:
+  - en
+  - fa
+  - ru
+  - pt
+  - tr
+#script_template: inno_setup.sas

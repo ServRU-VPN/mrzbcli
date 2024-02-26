@@ -1,0 +1,9 @@
+/bin/*
+!/bin/.gitkeep
+.build
+.idea
+
+**/*.log
+.DS_Store
+
+**/*.syso

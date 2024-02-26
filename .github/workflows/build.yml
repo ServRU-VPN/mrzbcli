@@ -1,0 +1,333 @@
+name: Build
+on:
+  workflow_call:
+    inputs:
+      upload-artifact:
+        type: boolean
+        default: true
+      tag-name:
+        type: string
+        default: "draft"
+      channel:
+        type: string
+        default: "dev"
+
+env:
+  IS_GITHUB_ACTIONS: 1
+  CHANNEL: "${{ inputs.channel }}"
+  FLUTTER_VERSION: '3.16.x'
+  NDK_VERSION: r26b
+  UPLOAD_ARTIFACT: "${{ inputs.upload-artifact }}"
+  TAG_NAME: "${{ inputs.tag-name }}"
+  TARGET_NAME_AppImage: "Hiddify-Linux-x64"
+  TARGET_NAME_deb: "Hiddify-Debian-x64"
+  TARGET_NAME_rpm: "Hiddify-rpm-x64"
+  TARGET_NAME_apk: "Hiddify-Android"
+  TARGET_NAME_aab: "Hiddify-Android"
+  #TARGET_NAME_exe: "Hiddify-Windows-x64"
+  TARGET_NAME_dmg: "Hiddify-MacOS"
+  TARGET_NAME_pkg: "Hiddify-MacOS-Installer"
+  TARGET_NAME_ipa: "Hiddify-iOS"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'stable'
+          cache: true
+      - name: Prepare
+        run: make linux-prepare
+      - name: Test
+        run: flutter test
+
+  build:
+    needs: test
+    permissions: write-all
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: android-apk
+            os: ubuntu-latest
+            targets: apk
+
+          - platform: android-aab
+            os: ubuntu-latest
+            targets: aab
+
+          - platform: windows
+            os: windows-2019
+            aarch: amd64
+            targets: exe
+
+          - platform: linux
+            os: ubuntu-22.04
+            aarch: amd64
+            targets: AppImage,deb,rpm
+
+          - platform: macos
+            os: macos-13
+            aarch: universal
+            targets: dmg,pkg
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'stable'
+          cache: true
+      - name: Setup Java
+        if: startsWith(matrix.platform,'android')
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 17
+      - name: Setup NDK
+        if: startsWith(matrix.platform,'android')
+        uses: nttld/setup-ndk@v1.4.1
+        id: setup-ndk
+        with:
+          ndk-version: ${{ env.NDK_VERSION }}
+          add-to-path: true
+          link-to-sdk: true
+
+
+      - name: Setup dependencies
+        run: |
+          make ${{ matrix.platform }}-install-dependencies
+
+      - name: Prepare for ${{ matrix.platform }}
+        run: |
+          make ${{ matrix.platform }}-prepare
+          tree
+
+      - name: Setup Android Signing Properties
+        if: ${{ inputs.upload-artifact && startsWith(matrix.platform,'android') }}
+        run: |
+          echo "${{ secrets.ANDROID_SIGNING_KEY }}" | base64 --decode > android/key.jks
+          echo "storeFile=$(pwd)/android/key.jks" > android/key.properties
+          echo "storePassword=${{ secrets.ANDROID_SIGNING_STORE_PASSWORD }}" >> android/key.properties
+          echo "keyPassword=${{ secrets.ANDROID_SIGNING_KEY_PASSWORD }}" >> android/key.properties
+          echo "keyAlias=${{ secrets.ANDROID_SIGNING_KEY_ALIAS }}" >> android/key.properties
+
+      - name: Setup Apple certificate and provisioning profile
+        if: ${{ inputs.upload-artifact && startsWith(matrix.os,'macos') }}
+        env:
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.APPLE_BUILD_CERTIFICATE_BASE64 }}
+          P12_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_P12_PASSWORD }}
+          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.APPLE_BUILD_PROVISION_PROFILE_BASE64 }}
+          BUILD_PACKET_TUNNEL_PROVISION_PROFILE_BASE64: ${{ secrets.APPLE_BUILD_PACKET_TUNNEL_PROVISION_PROFILE_BASE64 }}
+          KEYCHAIN_PASSWORD: ${{ secrets.APPLE_KEYCHAIN_PASSWORD }}
+        run: |
+          # create variables
+          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+          PP_PACKET_TUNNEL_PATH=$RUNNER_TEMP/build_pppt.mobileprovision
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+          # import certificate and provisioning profile from secrets
+          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
+          echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
+          echo -n "$BUILD_PACKET_TUNNEL_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PACKET_TUNNEL_PATH
+
+          # create temporary keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          # import certificate to keychain
+          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+
+          # apply provisioning profile
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $PP_PACKET_TUNNEL_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+
+      - name: Build ${{ matrix.platform }}
+        env:
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+        run: |
+          make ${{ matrix.platform }}-release
+
+      - name: Upload Debug Symbols
+        if: ${{ inputs.upload-artifact && inputs.tag-name != 'draft' }}
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_DIST: ${{ matrix.platform == 'android-aab' && 'google-play' || 'general' }}
+        run: |
+          flutter packages pub run sentry_dart_plugin
+
+      - name: Copy to out Windows
+        if: matrix.platform == 'windows'
+        run: |
+          tree
+          .\scripts\package_windows.ps1
+
+      - name: Copy to out Android APK
+        if: matrix.platform == 'android-apk'
+        run: |
+          mkdir out
+          ls -R ./build/app/outputs
+          cp ./build/app/outputs/flutter-apk/*arm64-v8a*.apk out/${TARGET_NAME_apk}-arm64.apk || echo "no arm64 apk"
+          cp ./build/app/outputs/flutter-apk/*armeabi-v7a*.apk out/${TARGET_NAME_apk}-arm7.apk || echo "no arm7 apk"
+          cp ./build/app/outputs/flutter-apk/*x86_64*.apk out/${TARGET_NAME_apk}-x86_64.apk || echo "no x64 apk"
+          cp ./build/app/outputs/flutter-apk/app-release.apk out/${TARGET_NAME_apk}-universal.apk || echo "no universal apk"
+
+      - name: Copy to out Android AAB
+        if: matrix.platform == 'android-aab'
+        run: |
+          mkdir out
+          ls -R ./build/app/outputs
+          cp ./build/app/outputs/bundle/release/app-release.aab out/hiddify-android-market.aab || echo "no aab"
+
+      - name: Copy to out unix
+        if: startsWith(matrix.platform,'linux') || matrix.platform == 'macos' || matrix.platform == 'ios'
+        run: |
+          ls -R dist/
+          mkdir out
+          mkdir tmp_out
+          
+          for EXT in $(echo ${{ matrix.targets }} | tr ',' '\n'); do
+            KEY=TARGET_NAME_${EXT}
+            FILENAME=${!KEY}
+            echo "For $EXT ($KEY) filename is ${FILENAME}"
+            mv dist/*/*.$EXT tmp_out/${FILENAME}.$EXT
+            chmod +x tmp_out/${FILENAME}.$EXT
+            if [ "${{matrix.platform}}" == "linux" ];then
+              cp ./.github/help/linux/* tmp_out/
+            else
+              cp ./.github/help/mac-windows/* tmp_out/
+            fi
+            if [[ "${{matrix.platform}}" == 'ios' ]];then
+              mv tmp_out/${FILENAME}.$EXT bin/${FILENAME}.$EXT
+            else
+              cd tmp_out
+              # 7z a ${FILENAME}.zip ./
+              # mv ${FILENAME}.zip ../out/
+              # [[ $EXT == 'AppImage' ]]&& mv ${FILENAME}.$EXT ../out/ # added for appimage link
+              mv ${FILENAME}.$EXT ../out/
+              cd ..
+            fi
+          done
+
+      - name: Clean up keychain and provisioning profile
+        if: ${{ always() && startsWith(matrix.os,'macos')}}
+        run: |
+          security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
+          rm ~/Library/MobileDevice/Provisioning\ Profiles/build_pp.mobileprovision
+
+      - name: Upload Artifact
+        if: env.UPLOAD_ARTIFACT == 'true'
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifact
+          path: ./out
+          retention-days: 2
+
+  update-draft:
+    permissions: write-all
+    if: ${{ inputs.upload-artifact }}
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+        with:
+          # by default, it uses a depth of 1
+          # this fetches all history so that we can read each commit
+          fetch-depth: 0
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: artifact
+          path: ./out/
+
+      - name: Display Files Structure
+        run: ls -R
+        working-directory: ./out
+
+      - name: Delete Current Release Assets
+        uses: 8Mi-Tech/delete-release-assets-action@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: 'draft'
+          deleteOnlyFromDrafts: false
+          
+      - name: prepare_release_message
+        run: |
+          pip install gitchangelog pystache mustache markdown
+          prelease=$(curl --silent "https://api.github.com/repos/hiddify/hiddify-next/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")')
+          current="${{ github.ref_name }}"
+          sed 's|RELEASE_TAG|${{ env.TAG_NAME }}|g' ./.github/release_message.md > release.md
+          echo -e "\n\n<details markdown=1><summary>All changes from $current to the latest commit:</summary>\n\n">>release.md
+          gitchangelog "${prelease}.." >> release.md  2>&1 || echo "Error in gitchangelog"
+          echo -e "\n\n</details>">>release.md
+      - name: Create or Update Draft Release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: ./out/*
+          name: 'draft'
+          tag_name: 'draft'
+          body_path: './release.md'
+          prerelease: true
+
+  upload-release:
+    permissions: write-all
+    if: ${{ inputs.upload-artifact && inputs.tag-name != 'draft' }}
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: artifact
+          path: ./out/
+
+      - name: Display Files Structure
+        run: |
+          ls -R ./out
+          ls -R ./.github/
+          ls -R ./.git/
+          mv out/hiddify-android-market.aab  hiddify-android-market.aab
+
+      - name: prepare_release_message
+        run: |
+          sed 's|RELEASE_TAG|${{ env.TAG_NAME }}|g' ./.github/release_message.md >> release.md
+
+      - name: Upload Release
+        uses: softprops/action-gh-release@v1
+        if: ${{ success() }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          prerelease: ${{ env.CHANNEL == 'dev' }}
+          tag_name: ${{ env.TAG_NAME }}
+          body_path: './release.md'
+          files: ./out/*
+
+      - name: Create service_account.json
+        run: echo '${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}' > service_account.json
+
+      - name: Deploy to Google Play Internal Testers
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJson: service_account.json
+          packageName: app.hiddify.com
+          releaseName: ${{ env.TAG_NAME }}
+          releaseFiles: ./hiddify-android-market.aab
+          track: 'beta'
