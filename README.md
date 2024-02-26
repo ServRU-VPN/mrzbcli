@@ -1,65 +1,51 @@
-<div dir="ltr">
-    
-[**![Lang_farsi](https://user-images.githubusercontent.com/125398461/234186932-52f1fa82-52c6-417f-8b37-08fe9250a55f.png) فارسی**](README_fa.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[**Русский 🇷🇺**](README_ru.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[**简体中文 🇨🇳**](README_cn.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[**日本語 🇯🇵**](README_ja.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[**Portugês-BR 🇧🇷**](README_br.md)
 
-</div>
-<br>
 
-<p align="center"><img src="https://github.com/hiddify/hiddify-next/assets/125398461/d821cfe0-b4c4-441f-be4e-eb9209f59542" /></p>
-<br>
+<p align="center"><img src="https://i.ibb.co/xhKy3p9/23b3bdb8-af3a-4867-8d73-a9f22c811869.jpg"/></p>
 
 <div align="center">
-
-<!--
-![Hiddify logo + text](https://github.com/hiddify/hiddify-next/assets/125398461/d821cfe0-b4c4-441f-be4e-eb9209f59542)
-    -->
     
-[![GP-Intalls](https://img.shields.io/endpoint?color=green&logo=google-play&logoColor=green&url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dapp.hiddify.com%26l%3DGoogle%2520Play%26m%3D%24shortinstalls&style=flat-square)](https://play.google.com/store/apps/details?id=app.hiddify.com) [![Downloads](https://img.shields.io/github/downloads/hiddify/hiddify-next/total?style=flat-square&logo=github)](https://github.com/hiddify/hiddify-next/releases/)[![Last Version](https://img.shields.io/github/release/hiddify/hiddify-next/all.svg?style=flat-square)](https://github.com/hiddify/hiddify-next/releases/)[![Last Release Date](https://img.shields.io/github/release-date/hiddify/hiddify-next.svg?style=flat-square)](https://github.com/hiddify/hiddify-next/releases/)[![commits](https://img.shields.io/github/commit-activity/m/hiddify/hiddify-next?style=flat-square)](https://github.com/hiddify/hiddify-next/)
-[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify)[![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/hiddify)[![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board/5)
+[![GP-Intalls](https://img.shields.io/endpoint?color=green&logo=google-play&logoColor=green&url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dapp.mrzbcli.ru%26l%3DGoogle%2520Play%26m%3D%24shortinstalls&style=flat-square)](https://play.google.com/store/apps/details?id=app.mrzbcli.ru) [![Downloads](https://img.shields.io/github/downloads/ServRU-VPN/servruvpn/total?style=flat-square&logo=github)](https://github.com/ServRU-VPN/servruvpn/releases/)[![Last Version](https://img.shields.io/github/release/ServRU-VPN/servruvpn/all.svg?style=flat-square)](https://github.com/ServRU-VPN/servruvpn/)[![Last Release Date](https://img.shields.io/github/release-date/hiddify/hiddify-next.svg?style=flat-square)](https://github.com/ServRU-VPN/servruvpn/)[![commits](https://img.shields.io/github/commit-activity/m/ServRU-VPN/servruvpn?style=flat-square)](https://github.com/ServRU-VPN/servruvpn/)
+[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify)[![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/servruvpn)[![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fsupservru)](https://telegram.dog/supservru/1)
 
 </div>
 
+## Что такое ServRU VPN?
+Многоплатформенный клиент на основе [Sing-box](https://github.com/SagerNet/sing-box), который служит универсальным набором инструментов прокси. Это приложение предлагает широкий спектр возможностей, которые перечислены ниже. Он также поддерживает большое количество протоколов. Приложение бесплатное, без рекламы и с открытым исходным кодом. Он предоставляет безопасный и конфиденциальный инструмент для получения доступа к бесплатному Интернету.
 
-
-
-## What is Hiddify-Next?
-
-<p dir="ltr" style="font-size: 16px">A multi-platform proxy client based on <a href="https://github.com/SagerNet/sing-box">Sing-box</a> universal proxy tool-chain. Hiddify offers a wide range of capabilities, like automatic node selection, TUN mode, remote profiles etc. Hiddify is ad-free and open-source. With support for a wide range of protocols, it provides a secure and private way for accessing free internet.</p>
+Приложение разработано с использованием [Flutter](https://flutter.dev/) и [Go](https://go.dev/). Для получения дополнительной информации вы можете прочитать наши Рекомендации по участию в разработке.
 
 <div align=center>
-<img width=90% alt="English Demo" src="https://github.com/hiddify/hiddify-next/assets/125398461/ffe5346d-3404-470f-b5e0-4364e23743d2">
-
+<img width=90% alt="Russian Demo" src="https://sun9-19.userapi.com/impg/7wXlpNVzP0ORe_Kjm8zw-lMUYkVbZK60urpN-A/nYkUhPwceSg.jpg?size=1280x707&quality=96&sign=7920583f5daeb61565163d193573ae3b&type=album">
 </div>
 
-## 🚀 Main features
+## 🚀 Основные особенности
+⭐ Простота использования благодаря простому пользовательскому интерфейсу.
 
-✈️ Multi-platform: Android, iOS, Windows, macOS and Linux
+✈️ Мультиплатформенность: Android, Windows, Linux и macOS (PR для iOS приветствуются)
 
-⭐ Intuitive and accessible UI
+🔍 Автоматический выбор по задержке
 
-🔍 Delay based node selection
+🟡 Широкий выбор протоколов: ECH, Sing-box, V2ray, Xray, Vless, Vmess, Reality, TUIC, Hysteria, ShadowTLS, SSH, Clash, Clash мета.
 
-🟡 Wide range of protocols:
-Vless, Vmess, Reality, TUIC, Hysteria, SSH etc.
+🟡 Ссылки на подписку: Clash, Clash мета, Sing-box и Shadowsocks.
 
-🟡 Subscription link and configuration formats: Sing-box, V2ray, Clash, Clash meta
+🔄 Автоматическое обновление подписки
 
-🔄 Automatic subscription update
+🔎 Отображать информацию профиля, включая оставшиеся дни и использование трафика.
 
-🔎 Display profile information including remaining days and traffic usage
+💻 Совершенно бесплатно, без рекламы и перебоев.
 
-🛡 Open source, secure and community driven
+🛡 Открытый исходный код, безопасный и управляемый сообществом
 
-🌙 Dark and light modes
+🌙 Темный и светлый режимы
 
-⚙ Compatible with all proxy management panels
+⚙ Совместим со всеми панелями управления прокси.
 
-⭐ Appropriate configuration for Iran, China, Russia and other countries
+⭐ Подходящая конфигурация для Ирана, Китая, России и других стран.
 
-📱 Available on [Google Play](https://play.google.com/store/apps/details?id=app.hiddify.com)
+📱 Доступно в [Google Play](https://play.google.com/store/apps/details?id=app.mrzbcli.ru)
 
-## 🔗 Download
-
+## Скачать
 <div align=left>
 <table>
     <thead align=left>
@@ -71,26 +57,25 @@ Vless, Vmess, Reality, TUIC, Hysteria, SSH etc.
     <tbody align=left>
         <tr>
         <td>Android</td><td>
-            <a href="https://play.google.com/store/apps/details?id=app.hiddify.com"><img width=150px src="https://github.com/hiddify/hiddify-next/blob/main/docs/google-play-badge.png"></a><br>
-            <a href="https://github.com/hiddify/hiddify-next/releases/latest/download/hiddify-android-universal.apk"><img src="https://img.shields.io/badge/APK-Universal-044d29.svg?logo=github"></a><br>
-            <a href="https://github.com/hiddify/hiddify-next/releases/latest/download/hiddify-android-arm64.apk"><img src="https://img.shields.io/badge/APK-ARMv8-168039.svg?logo=github"></a><br>
-            <a href="https://github.com/hiddify/hiddify-next/releases/latest/download/hiddify-android-arm7.apk"><img src="https://img.shields.io/badge/APK-ARMv7-45bf55.svg?logo=github"></a><br>
-            <a href="https://github.com/hiddify/hiddify-next/releases/latest/download/hiddify-android-x86_64.apk"><img src="https://img.shields.io/badge/APK-x64-96ed89.svg?logo=github"></a>
+            <a href="https://github.com/ServRU-VPN/servruvpn/releases/download/RELEASE_TAG/MrzbCLi-android-universal.apk"><img src="https://img.shields.io/badge/APK-Universal-044d29.svg?logo=github"></a><br>
+            <a href="https://github.com/ServRU-VPN/servruvpn/releases/download/RELEASE_TAG/MrzbCLi-android-arm64.apk"><img src="https://img.shields.io/badge/APK-ARMv8-168039.svg?logo=github"></a><br>
+            <a href="https://github.com/ServRU-VPN/servruvpn/releases/download/RELEASE_TAG/MrzbCLi-android-arm7.apk"><img src="https://img.shields.io/badge/APK-ARMv7-45bf55.svg?logo=github"></a><br>
+            <a href="https://github.com/ServRU-VPN/servruvpn/releases/download/RELEASE_TAG/MrzbCLi-android-x86_64.apk"><img src="https://img.shields.io/badge/APK-x64-96ed89.svg?logo=github"></a>
         </td>
         </tr>
         <tr>
             <td>Windows</td>
-            <td><a href="https://github.com/hiddify/hiddify-next/releases/latest/download/hiddify-windows-x64-setup.zip"><img src="https://img.shields.io/badge/Setup-x64-0078d7.svg?logo=github"></a><br>
-            <a href="https://github.com/hiddify/hiddify-next/releases/latest/download/hiddify-windows-x64-portable.zip"><img src="https://img.shields.io/badge/Portable-x64-2d7d9a.svg?logo=github"></a>
+            <td><a href="https://github.com/ServRU-VPN/servruvpn/releases/download/RELEASE_TAG/MrzbCLi-windows-x64-setup.zip"><img src="https://img.shields.io/badge/Setup-x64-0078d7.svg?logo=github"></a><br>
+            <a href="https://github.com/ServRU-VPN/servruvpn/releases/download/RELEASE_TAG/MrzbCLi-windows-x64-portable.zip"><img src="https://img.shields.io/badge/Portable-x64-2d7d9a.svg?logo=github"></a>
         </td>
         </tr>
         <tr>
-            <td>macOS</td>
-            <td><a href="https://github.com/hiddify/hiddify-next/releases/latest/download/hiddify-macos-universal.zip"><img src="https://img.shields.io/badge/DMG-Universal-ea005e.svg?logo=github"></a></td>
+            <td>macOS (v10.14+)</td>
+            <td><a href="https://github.com/ServRU-VPN/servruvpn/releases/latest/download/MrzbCLi-macos-universal.zip"><img src="https://img.shields.io/badge/DMG-Universal-ea005e.svg?logo=github"></a></td>
         </tr>
         <tr>
             <td>Linux</td>
-            <td><a href="https://github.com/hiddify/hiddify-next/releases/latest/download/hiddify-linux-x64.zip"><img src="https://img.shields.io/badge/AppImage-x64-f84e29.svg?logo=github"> </a></td>
+            <td><a href="https://github.com/ServRU-VPN/servruvpn/releases/download/RELEASE_TAG/MrzbCLi-macos-universal.zip"><img src="https://img.shields.io/badge/AppImage-x64-f84e29.svg?logo=github"> </a></td>
         </tr>
     </tbody>
 </table>
@@ -98,76 +83,27 @@ Vless, Vmess, Reality, TUIC, Hysteria, SSH etc.
 
 </div>
 
-## ⚙️ Installation and tutorials
+## Установка и руководства
+Учебную информацию можно найти на [вики-странице](https://github.com/noa1ms/servruvpn/wiki).
 
-**Find tutorial information on our wiki page by clicking on image below.**
+## Улучшите переводы
+Вы можете легко внести свой вклад в этот проект, используя следующие ссылки для улучшения переводов:
+- [Русский](https://inlang.com/editor/github.com/noa1ms/servruvpn?lang=en&lang=ru)
 
-<div align="center">
-
-[![Tutorials on Wiki](https://github.com/hiddify/hiddify-next/assets/125398461/95bb5cf8-c143-4934-87d6-b9d4c31e035e)](https://github.com/hiddify/hiddify-next/wiki)
-
-
-</div>
-
-## 🌎 Translations
-
-<div align=center>
-    
-[![inlang status badge](https://inlang.com/badge?url=github.com/hiddify/hiddify-next)](https://inlang.com/editor/github.com/hiddify/hiddify-next?ref=badge)
-</div>
-
-Improve existing languages or add new ones by manually editing the JSON files located in `/assets/translations` or by using the [Inlang online editor](https://inlang.com/editor/github.com/hiddify/hiddify-next).
-
-## ✏️ Acknowledgements
-
-We would like to express our sincere appreciation to the contributors of the following projects, whose robust foundation and innovative features have significantly enhanced the success and functionality of this project.
+## Благодарности
 
 - [Sing-box](https://github.com/SagerNet/sing-box)
-- [Sing-box for Android](https://github.com/SagerNet/sing-box-for-android)
-- [Sing-box for Apple](https://github.com/SagerNet/sing-box-for-apple)
+- [Sing-box для Андроид](https://github.com/SagerNet/sing-box-for-android)
 - [Clash](https://github.com/Dreamacro/clash)
 - [Clash Meta](https://github.com/MetaCubeX/Clash.Meta)
 - [FClash](https://github.com/Fclash/Fclash)
-- [Vazirmatn Font by Saber Rastikerdar](https://github.com/rastikerdar/vazirmatn)
-- [Others](./pubspec.yaml)
+- [Другие](./pubspec.yaml)
 
-## 🎯 Donation and Support
-
-The easiest way to support us is to click on the star (⭐) at the top of this page.
+## Пожертвования и поддержка
+Самый простой способ поддержать нас — нажать на звездочку (⭐) вверху этой страницы.
 
 <div align=center>
     
-<img alt="Star History Chart" width=50% src="https://api.star-history.com/svg?repos=Hiddify/hiddify-next&type=Date)](https://star-history.com/#Hiddify/hiddify-next&Date" />
+<img alt="Star History Chart" width=50% src="https://api.star-history.com/svg?repos=ServRU-VPN/servruvpn&type=Date)](https://star-history.com/#ServRU-VPN/servruvpn&Date" />
 
 </div>
-
-We also need financial support for our services. All of our activities are done voluntarily and financial support will be spent on the development of the project. You can view our support addresses [here](https://github.com/hiddify/hiddify-server/wiki/support).
-
-## 👩‍🏫 Collaboration and Contact Information
-
-Hiddify is a community driven project. If you're interested in contributing, please read the [contribution guidelines](./CONTRIBUTING.md). We would specially appreciate any help we can get in these areas: **Flutter, Go, iOS development (Swift), Android development (Kotlin).**
-
-<div align=center>
-
-<br>
-
-[![Email](https://img.shields.io/badge/Email-contribute@hiddify.com-005FF9?style=flat-square&logo=mail.ru)](mailto:contribute@hiddify.com)
-[![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/hiddify)
-[![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
-[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify)
-[![Twitter](https://img.shields.io/twitter/follow/hiddify_com?color=%231DA1F2&logo=twitter&logoColor=1DA1F2&style=flat-square)](https://twitter.com/intent/follow?screen_name=hiddify_com)
-
-</div>
-
-<p align=center>
- We appreciate all people who are participating in this project. Some people here and many many more outside of Github. It means a lot to us. ♥
- </p>
- 
-<p align=center> 
-<a href="https://github.com/hiddify/hiddify-next/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=hiddify/hiddify-next" />
-</a>
-</p>
-<p align=center>
- Made with <a rel="" target="_blank" href="https://contrib.rocks">Contrib.Rocks</a> 
-</p>
